@@ -132,14 +132,12 @@ fn test_skew() {
     let t = TSC::new().unwrap();
     println!("{t:?}");
 
-    for _ in 0..4 {
-        let t0 = Instant::now();
-        let n0 = t.now_ns();
-        std::thread::sleep(Duration::from_secs(30));
-        let n1 = t.now_ns();
-        let tsc_dt = n1 - n0;
-        let clock_dt = Instant::now().duration_since(t0);
+    let t0 = Instant::now();
+    let n0 = t.now_ns();
+    std::thread::sleep(Duration::from_secs(60));
+    let n1 = t.now_ns();
+    let tsc_dt = n1 - n0;
+    let clock_dt = Instant::now().duration_since(t0);
 
-        println!("tsc={} clock={clock_dt:?}", tsc_dt as f64 / 1_000_000_000.0,);
-    }
+    println!("tsc={} clock={clock_dt:?}", tsc_dt as f64 / 1_000_000_000.0,);
 }
